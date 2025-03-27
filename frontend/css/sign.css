@@ -1,4 +1,13 @@
-General Styles
+/* ================= General Styles ================= */
+:root {
+    --primary-color: #482485;
+    --secondary-color: #666;
+    --background-color: white;
+    --error-color: #e72525;
+    --text-color: #333;
+    --white: #fff;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -11,31 +20,27 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background : #482485;
+    background: var(--background-color);
 }
 
-/* Container */
+/* ================= Container ================= */
 .container {
     display: flex;
     height: 100vh;
     width: 100vw;
-    background: white;
+    background: var(--background-color);
 }
 
-/* Left Section */
+/* ================= Left Section ================= */
 .left {
     display: flex;
     flex-direction: column;
     flex: 1;
     justify-content: center;
     align-items: center;
-    padding: 40px;
     text-align: left;
-
-
+    padding-inline: 40px;
 }
-
-
 
 .logo {
     display: flex;
@@ -55,7 +60,6 @@ body {
     font-weight: bold;
 }
 
-
 .heading {
     text-align: center;
     margin-bottom: 10px;
@@ -68,10 +72,10 @@ body {
 
 .heading p {
     font-size: 0.9rem;
-    color: #666;
+    color: var(--secondary-color);
 }
 
-
+/* ================= Input Form ================= */
 .input-form {
     width: 80%;
     max-width: 400px;
@@ -110,7 +114,7 @@ body {
     cursor: pointer;
 }
 
-
+/* ================= Checkbox ================= */
 .checkbox-container {
     display: flex;
     align-items: center;
@@ -120,38 +124,39 @@ body {
     margin-top: 5px;
 }
 
-.checkbox-container label,.checkbox-container a{
+.checkbox-container label,
+.checkbox-container a {
     font-size: 10px;
 }
 
-.left-side{
+.left-side {
     display: flex;
     align-items: center;
     gap: 5px;
 }
 
-.checkbox-container [type="checkbox"]{
+.checkbox-container [type="checkbox"] {
     appearance: none;
     width: 3px;
     height: 3px;
     padding: 7px;
     border-radius: 10px;
-    border: 2px solid #482485;
-    background:white;
+    border: 2px solid var(--primary-color);
+    background: var(--white);
     position: relative;
     cursor: pointer;
     font-size: 5px;
-
 }
 
-input[type="checkbox"]:checked{
-    background-color: #482485;
-    border: #482485;
+input[type="checkbox"]:checked {
+    background-color: var(--primary-color);
+    border: var(--primary-color);
 }
+
 input[type="checkbox"]:checked::before {
     content: "✓";
     font-size: 10px;
-    color: white;
+    color: var(--white);
     position: absolute;
     left: 50%;
     top: 50%;
@@ -160,18 +165,19 @@ input[type="checkbox"]:checked::before {
 }
 
 .forgot-password {
-    color: #482485;
+    color: var(--primary-color);
     text-decoration: none;
     font-weight: bold;
 }
 
+/* ================= Buttons ================= */
 .btn {
     width: 50%;
     padding: 8px;
     border: none;
     border-radius: 10px;
-    background: #482485;
-    color: white;
+    background: var(--primary-color);
+    color: var(--white);
     font-size: 0.8rem;
     cursor: pointer;
     transition: 0.3s;
@@ -180,7 +186,7 @@ input[type="checkbox"]:checked::before {
     display: block;
 }
 
-.button-container{
+.button-container {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -190,7 +196,7 @@ input[type="checkbox"]:checked::before {
     box-shadow: 0px 5px 15px rgba(138, 43, 226, 0.5);
 }
 
-/* Social Login */
+/* ================= Social Login ================= */
 .social-login {
     display: flex;
     align-items: center;
@@ -210,13 +216,9 @@ input[type="checkbox"]:checked::before {
 .social-text {
     font-size: 1rem;
     font-weight: 500;
-    color: #666;
+    color: var(--secondary-color);
     font-size: 0.8rem;
-    white-space: nowrap; 
-}
-
-.social-login p{
-    margin-top: 5px;
+    white-space: nowrap;
 }
 
 .social-icons {
@@ -232,26 +234,25 @@ input[type="checkbox"]:checked::before {
     cursor: pointer;
 }
 
-.sign-text{
+.sign-text {
     margin-top: 10px;
     text-align: center;
     font-size: 1rem;
 }
 
 .sign-text a {
-    color: #482485;
+    color: var(--primary-color);
     text-decoration: underline;
     font-weight: bold;
 }
 
-
-/* Right Section */
+/* ================= Right Section ================= */
 .right {
     flex: 1;
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    background: #482485;
+    background: var(--primary-color);
     position: relative;
     overflow: hidden;
 }
@@ -260,11 +261,10 @@ input[type="checkbox"]:checked::before {
     width: 80%;
 }
 
-
 .floating-text {
     position: absolute;
-    top: 10%; 
-    left: 10%; 
+    top: 10%;
+    left: 10%;
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -273,24 +273,22 @@ input[type="checkbox"]:checked::before {
 
 .floating-text span {
     display: flex;
-    align-items: center; 
+    align-items: center;
     gap: 10px;
     background: rgba(30, 51, 103, 0.3);
     padding: 10px 20px;
     border-radius: 20px;
     backdrop-filter: blur(10px);
     font-size: 1rem;
-    color: white;
+    color: var(--white);
     text-align: center;
 }
 
-
- form .incorrect{
-    border: 2px solid #e72525;
+/* ================= Error Styles ================= */
+form .incorrect {
+    border: 2px solid var(--error-color);
 }
 
-#error-message{
-    color: #e72525;
+#error-message {
+    color: var(--error-color);
 }
-
-/* recent transaction */
