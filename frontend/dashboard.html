@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link href="https://fonts.cdnfonts.com/css/lufga" rel="stylesheet">
+    <script src="dashboard.js"  defer></script>
+    <title>Finset-Dasboard</title>
+
+</head>
+
+<body>
+    <nav id="sidebar">
+
+        <ul>
+            <li>
+                <img src="assets/logo-Photoroom.png" alt="logo">
+                <span class="sidelogo">&nbsp;&nbsp;&nbsp;FinAssist</span>
+            </li>
+            <li class="active">
+                <a href="#">
+                    <img src="assets/icons/dashboard.svg" alt="">
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="assets/icons/transaction.svg" alt="">
+                    <span>Transactions</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="assets/icons/wallet.svg" alt="">
+                    <span>Wallet</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="assets/icons/goals.svg" alt="">
+                    <span>Goals</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="assets/icons/coins.svg" alt="">
+                    <span>Budget</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="assets/icons/analytics.svg" alt="">
+                    <span>Analytics</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="assets/icons/settings.svg" alt="">
+                    <span>Settings</span>
+                </a>
+            </li>
+            <div class="bottom">
+                <li>
+
+                    <a href="#">
+                        <img src="assets/icons/help_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="">
+                        <span>Help</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="assets/icons/logout.svg" alt="">
+                        <span>Logout</span>
+                    </a>
+                </li>
+            </div>
+        </ul>
+    </nav>
+
+    <main>
+        <div class="headerbar">
+            <div class="side">
+                <h2>Welcome <span id="username-display"></span></h2>
+                <p>Manage your finances</p>
+            </div>
+            <button id="add_transaction_btn" class="add-transaction">+ Add Transaction</button>
+        </div>
+        <div class="mainbody-container">
+            <div class="upper">
+                <div class="box" style="grid-area: box-1">
+                    <h2>Total balance</h2>
+                    <p id="balance"></p>
+                </div>
+                <div class="box" style="grid-area: box-2">
+                    <h2>Income</h2>
+                    <p id="income"></p>
+                </div>
+                <div class="box" style="grid-area: box-3">
+                    <h2>Expense</h2>
+                    <p id="expenses"></p>
+                </div>
+                <div class="box" style="grid-area: box-4">
+                    <h2>Total Savings</h2>
+                    <p id="savings"></p>
+                </div>
+            </div>
+            <div class="lower">
+                <div class="box" style="grid-area: box-5">
+                    <h2>Money flow</h2>
+                </div>
+                <div class="box" style="grid-area: box-6">
+                    <h2>Budget</h2>
+                </div>
+                <div class="box" id="transaction-container" style="grid-area: box-7">
+                    <h2>Recent transaction</h2>
+                    <table class="transaction-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Name</th>
+                                <th>Amount</th>
+                                <th>Category</th>
+                                <th>Method</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recent-transactions">
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="box" style="grid-area: box-8">
+                    <h2>Saving Goals</h2>
+                </div>
+            </div>
+
+        </div>
+        <div class="add-transaction-box" id="popup">
+            <div class="transaction-box">
+                <span id="close_btn">&times;</span>
+                <h2>Add Transaction</h2>
+                <form id="transaction_form">
+                    <!-- type and method -->
+                    <div class="row">
+                        <div class="item">
+                            <label for="type">Type</label>
+                            <select id="type" required>
+                                <option value="income">Income</option>
+                                <option value="expense">Expense</option>
+                            </select>
+                        </div>
+                        <div class="item">
+                            <label for="amount">Amount</label>
+                            <input type="number" id="amount" placeholder="Enter amount" required>
+                        </div>
+                    </div>
+                    <label for="name">Name</label>
+                    <input type="text" id="name" placeholder="Name of transaction or short description" required>
+
+
+
+
+                    <div class="row">
+                        <div class="item">
+                            <label for="method">Method</label>
+                            <select id="method" required>
+                                <option value="cash">Cash</option>
+                                <option value="card">Card</option>
+                                <option value="online">Online</option>
+                            </select>
+                        </div>
+                        <div class="item">   
+                            <label for="category">Category:</label>
+                            <select id="category" required>
+                                <option value="salary">Salary</option>
+                                <option value="investment">Investment</option>
+                                <option value="rent">Rent</option>
+                                <option value="food">Food</option>
+                                <option value="transport">Transport</option>
+                                <option value="shopping">Shopping</option>
+                                <option value="bills">Bills & Utilities</option>
+                                <option value="others">Others</option>
+                            </select>
+
+                        </div>
+                    </div>
+
+                    <button type="submit" class="save-btn">Save</button>
+                </form>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>

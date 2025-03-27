@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Sign In</title>
+    <link rel="stylesheet" href="/css/sign.css"/>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+    <script src="scripts.js" defer></script>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="left">
+        <div class="logo">
+          <img src="assets/logo-Photoroom.png" alt="FinAssist Logo" />
+          <h4>FinAssist</h4>
+        </div>
+        <div class="heading">
+          <h3>Sign In</h3>
+          <p>Welcome there! Sign in to continue with Finset</p>
+          <p id="error-message"></p>
+        </div>
+
+        <div class="input-form">
+          <form action="" id="form">
+            <label for="">Email</label>
+            <input
+              id="email_input"
+              type="email"
+              placeholder="Enter your Email address"
+            />
+
+            <label for="">Password</label>
+            <div class="password-wrapper">
+              <input
+                id="password_input"
+                type="password"
+                placeholder="Enter your password"
+              />
+            </div>
+
+            <div class="checkbox-container">
+              <div class="left-side">
+                <input type="checkbox" id="remember-me" />
+                <label for="remember-me">Remember me</label>
+              </div>
+              <a href="#" class="forgot-password">Forgot Password</a>
+            </div>
+            <div class="button-container">
+              <button class="btn">Sign In</button>
+            </div>
+          </form>
+        </div>
+        <div class="social-login">
+          <span class="social-text">or login with</span>
+        </div>
+
+        <div class="social-icons">
+          <a href="#"><img src="assets/google-icon.png" alt="Google" /></a>
+        </div>
+
+        <div class="sign-text">
+          <span>Don't have an account? <a href="/signup">Sign up</a></span>
+        </div>
+      </div>
+
+      <div class="right">
+        <img
+          src="assets/flat-hand-drawn-people-analyzing-growth-charts.png"
+          alt="illustation"
+          />
+
+        <div class="floating-text">
+          <span class="scatter">
+            <i class="fa-solid fa-wallet"></i>Manage your finances</span>
+          <span class="scatter"
+            ><i class="fas fa-receipt"></i>Track transactions</span
+          >
+          <span class="scatter"
+            ><i class="fas fa-coins"></i>Create budgets</span
+          >
+          <span class="scatter"
+            ><i class="fas fa-bullseye"></i>Achieve saving goals</span
+          >
+          <span class="scatter"
+            ><i class="fa-solid fa-chart-line"></i>View analytics</span
+          >
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,296 @@
+General Styles
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background : #482485;
+}
+
+/* Container */
+.container {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    background: white;
+}
+
+/* Left Section */
+.left {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    text-align: left;
+
+
+}
+
+
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.logo img {
+    width: 30px;
+}
+
+.logo-container {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+
+.heading {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.heading h3 {
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.heading p {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+
+.input-form {
+    width: 80%;
+    max-width: 400px;
+    margin: 0 auto;
+    display: flex;
+    padding: 10px;
+    flex-direction: column;
+    align-items: center;
+}
+
+.input-form label {
+    display: block;
+    font-weight: 200;
+    margin: 6px 0 2px;
+    font-size: 1rem;
+}
+
+.input-form input {
+    width: 100%;
+    padding: 5px 30px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    outline: none;
+    font-size: 0.8em;
+}
+
+.password-wrapper {
+    position: relative;
+}
+
+.password-wrapper .eye-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 20px;
+    margin-top: 5px;
+}
+
+.checkbox-container label,.checkbox-container a{
+    font-size: 10px;
+}
+
+.left-side{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.checkbox-container [type="checkbox"]{
+    appearance: none;
+    width: 3px;
+    height: 3px;
+    padding: 7px;
+    border-radius: 10px;
+    border: 2px solid #482485;
+    background:white;
+    position: relative;
+    cursor: pointer;
+    font-size: 5px;
+
+}
+
+input[type="checkbox"]:checked{
+    background-color: #482485;
+    border: #482485;
+}
+input[type="checkbox"]:checked::before {
+    content: "✓";
+    font-size: 10px;
+    color: white;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+}
+
+.forgot-password {
+    color: #482485;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.btn {
+    width: 50%;
+    padding: 8px;
+    border: none;
+    border-radius: 10px;
+    background: #482485;
+    color: white;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 15px;
+    text-align: center;
+    display: block;
+}
+
+.button-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.btn:hover {
+    box-shadow: 0px 5px 15px rgba(138, 43, 226, 0.5);
+}
+
+/* Social Login */
+.social-login {
+    display: flex;
+    align-items: center;
+    width: 80%;
+    margin: 20px 0px;
+}
+
+.social-login::before,
+.social-login::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background-color: #ccc;
+    margin: 0 10px;
+}
+
+.social-text {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #666;
+    font-size: 0.8rem;
+    white-space: nowrap; 
+}
+
+.social-login p{
+    margin-top: 5px;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 10px 0;
+}
+
+.social-icons img {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.sign-text{
+    margin-top: 10px;
+    text-align: center;
+    font-size: 1rem;
+}
+
+.sign-text a {
+    color: #482485;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+
+/* Right Section */
+.right {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    background: #482485;
+    position: relative;
+    overflow: hidden;
+}
+
+.right img {
+    width: 80%;
+}
+
+
+.floating-text {
+    position: absolute;
+    top: 10%; 
+    left: 10%; 
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 250px;
+}
+
+.floating-text span {
+    display: flex;
+    align-items: center; 
+    gap: 10px;
+    background: rgba(30, 51, 103, 0.3);
+    padding: 10px 20px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    font-size: 1rem;
+    color: white;
+    text-align: center;
+}
+
+
+ form .incorrect{
+    border: 2px solid #e72525;
+}
+
+#error-message{
+    color: #e72525;
+}
+
+/* recent transaction */

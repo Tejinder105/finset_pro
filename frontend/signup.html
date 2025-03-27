@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <link rel="stylesheet" href="/css/sign.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">\
+    <script src="scripts.js" defer></script>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="left">
+            <div class="logo">
+                <img src="assets/logo-Photoroom.png" alt="FinAssist Logo" />
+                <h4>FinAssist</h4>
+            </div>
+            <div class="heading">
+                <h3>Welcome to FinSet!</h3>
+                <p>Set up and start managing your finances now</p>
+                <p id="error-message"></p>
+            </div>
+
+            <div class="input-form">
+                <form  id="form">
+                    <label for="username">Username</label>
+                    <input  type="username" id="user_name" name="username" placeholder="Enter your username">
+
+                    <label for="email">Email</label>
+                    <input type="email" id="email_input" name="email" placeholder="Enter your Email address" />
+
+                    <label for="password">Create password</label>
+                    <input type="password" id="password_input" name="password" placeholder="Must be 8 characters">
+
+                    <label for="confirm password">Confirm password</label>
+                    <input type="password" id="repeat_password_input" placeholder="Repeat password">
+
+                    <div class="checkbox-container">
+                        <div class="left-side">
+                            <input type="checkbox">
+                            <label for="">I agree to the <a href="#">Terms & Privacy</a></label>
+                        </div>
+                    </div>
+
+                    <div class="button-container">
+                        <button type="submit" class="btn">Sign-up</button>
+                    </div>
+
+                </form>
+            </div>
+            <div class="social-login">
+                <span class="social-text">or continue with</span>
+            </div>
+
+            <div class="social-icons">
+                <img src="assets/google-icon.png" alt="Google" />
+            </div>
+
+            <div class="sign-text">
+                <span>Have an account? <a href="/signin">Sign In</a></span>
+            </div>
+
+
+        </div>
+
+        <div class="right">
+            <img src="assets/flat-hand-drawn-people-analyzing-growth-charts.png" alt="illustation" />
+            
+            <div class="floating-text">
+                <span class="scatter"><i class="fa-solid fa-wallet"></i>Manage your finances</span>
+                <span class="scatter"><i class="fas fa-receipt"></i>Track transactions</span>
+                <span class="scatter"><i class="fas fa-coins"></i>Create budgets</span>
+                <span class="scatter"><i class="fas fa-bullseye"></i>Achieve saving goals</span>
+                <span class="scatter"><i class="fa-solid fa-chart-line"></i>View analytics</span>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
