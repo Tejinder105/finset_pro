@@ -229,3 +229,8 @@ app.get("/moneyFlow", async (req, res) => {
         res.status(500).json({ message: "Error fetching data", error: err });
     }
 });
+
+
+app.get("/transaction",async(req,res)=>{
+    res.sendFile(path.join(__dirname, "../frontend/transaction.html"));
+})
