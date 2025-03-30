@@ -71,7 +71,7 @@ app.post("/signup", async (req, res) => {
         await newUser.save();
         console.log('User registered successfully');
 
-        const token = generateToken({ username });
+        const token = generateToken({ id: newUser.id, username: newUser.username });
 
         res.json({
             message: "Signup successful",
@@ -171,7 +171,7 @@ app.post('/transaction', jwtAuthMiddleware, async (req, res) => {
 
         const newTransaction = await Transaction.create({
             userId,
-            amount,
+            amount:Number(amount),
             type,
             name,
             method,
@@ -182,9 +182,9 @@ app.post('/transaction', jwtAuthMiddleware, async (req, res) => {
         const user =await User.findById(userId);
 
         if (type === 'income') {
-            user.income += amount;
+            user.income += Number(amount);
         } else if (type === 'expense') {
-            user.expenses += amount;
+            user.expenses += Number(amount);
         }
         user.balance = user.income - user.expenses;
         user.transactions.push(newTransaction.id); 
@@ -208,10 +208,24 @@ app.post('/transaction', jwtAuthMiddleware, async (req, res) => {
 });
 
 
+app.get("/moneyFlow", async (req, res) => {
+    try {
+        const transactions = await Transaction.find(); // Fetch all transactions from MongoDB
 
+        let incomeData = new Array(12).fill(0); // Array for 12 months
+        let expenseData = new Array(12).fill(0);
 
+        transactions.forEach((txn) => {
+            const monthIndex = new Date(txn.date).getMonth(); // Get month (0 = Jan, 11 = Dec)
+            if (txn.type === "income") {
+                incomeData[monthIndex] += txn.amount;
+            } else if (txn.type === "expense") {
+                expenseData[monthIndex] += txn.amount;
+            }
+        });
 
-
-
-
-
+        res.json({ income: incomeData, expense: expenseData });
+    } catch (err) {
+        res.status(500).json({ message: "Error fetching data", error: err });
+    }
+});
