@@ -1,0 +1,423 @@
+:root {
+    --bg-dark: #121212;
+    --bg-light-dark: #1e1e1e;
+    --text-primary: #e0e0e0;
+    --text-secondary: #a0a0a0;
+    --gradient-primary: linear-gradient(90deg, #6b48ff, #a855f7);
+    --border-color: rgba(255, 255, 255, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    min-height: 100dvh;
+    background: var(--bg-dark);
+    color: var(--text-primary);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    transition: grid-template-columns 0.3s ease-in-out;
+    font-family: 'Lufga', sans-serif;
+}
+
+/* ---------------Header Section------------------ */
+.headerbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--bg-light-dark);
+    padding: 10px 20px;
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.headerbar h2 {
+    font-size: 32px;
+    font-weight: 600;
+}
+
+.headerbar p {
+    font-size: 16px;
+    color: var(--text-secondary);
+}
+
+/* ---------------Sidebar Section------------------ */
+
+#sidebar {
+    height: 100vh;
+    width: 200px;
+    box-sizing: border-box;
+    background-color: var(--bg-light-dark);
+    border-right: 1px solid var(--border-color);
+    padding: 5px 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#sidebar ul {
+    list-style: none;
+}
+
+#sidebar a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 14px;
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+}
+
+#sidebar a:hover {
+    background-color: #2a2a33;
+    transform: scale(1.02);
+}
+
+#sidebar ul li.active a {
+    background: var(--gradient-primary);
+    color: white;
+    box-shadow: 0 4px 12px rgba(107, 72, 255, 0.3);
+}
+
+#sidebar img {
+    flex-shrink: 0;
+}
+
+#sidebar>ul>li:first-child {
+    display: flex;
+    font-size: 0.8rem;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+#sidebar > ul > li:first-child img {
+    width: 40px;
+    height: 40px;
+}
+
+#sidebar>ul>li:first-child .sidelogo {
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.bottom {
+    margin-top: 30px;
+    font-size: 0.6rem;
+    border-top: 1px solid var(--border-color);
+    padding-top: 20px;
+}
+
+#sidebar a span {
+    flex-grow: 1;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.sidelogo,#sidebar a span {
+    white-space: nowrap;
+}
+
+.sidelogo {
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+#sidebar>ul>li:nth-child(10),#sidebar>ul>li:nth-child(9) {
+    display: flex;
+}
+
+.bottom-links {
+    margin-top: auto;
+}
+
+#sidebar a, #sidebar .logo {
+    border-radius: 14px;
+    padding: 0.85em;
+    text-decoration: none;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 1em;
+}
+/*==================mainbody container==================*/
+.main-content {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    gap: 20px; 
+}
+
+.mainbody-container{
+    display: flex;
+    flex-direction: column;
+    padding: 5px 10px;
+    gap: 20px;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.box {
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-light-dark);
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid var(--border-color);
+    opacity: 0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.box:nth-child(1) { animation-delay: 0.1s; }
+.box:nth-child(2) { animation-delay: 0.2s; }
+.box:nth-child(3) { animation-delay: 0.3s; }
+.box:nth-child(4) { animation-delay: 0.4s; }
+/*===============Transaction Section===========*/
+#transactions-container {
+    background-color: #1a1a1a;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    overflow-x: auto;
+    height: 100%;
+}
+
+.transaction-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 7px;
+    font-family: Arial, sans-serif;
+    white-space: nowrap;
+    
+}
+
+.transaction-table th, .transaction-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #444;
+    color: white;
+}
+
+.transaction-table th {
+    background: #2a2a2a;
+    color: #e0e0e0;
+    font-weight: 600;
+}
+
+.transaction-table tr:nth-child(even) {
+    background-color: #252525;
+}
+
+.transaction-table tbody tr {
+    transition: all 0.3s ease;
+}
+
+.transaction-table tbody tr:hover {
+    background-color: #2a2a2a;
+    transform: translateY(-2px);
+}
+
+.transaction-table td {
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.transaction-table td:nth-child(3) {
+    font-weight: 600;
+}
+
+/*===============transaction popup=============*/
+
+#popup {
+    display: none;
+}
+
+.add-transaction-box {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.add-transaction-box.visible {
+    opacity: 1;
+}
+
+.transaction-box {
+    background: var(--bg-light-dark);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border-color);
+    padding: 20px;
+    border-radius: 12px;
+    width: 400px;
+    text-align: center;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+h2 {
+    font-size: 20px;
+    color: #fff;
+    margin-bottom: 5px;
+}
+
+#close_btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 30px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    text-align: left;
+}
+
+.row {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+.item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+#amount,#name {
+    width: calc(100% - 20px);
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+select option {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+}
+
+select:hover {
+    border-color: #666;
+}
+
+input:focus,select:focus {
+    outline: none;
+    border-color: #8800ff;
+    box-shadow: 0 0 5px rgba(136, 0, 255, 0.5);
+}
+
+.form-group label {
+    font-size: 14px;
+    color: #e0e0e0;
+    margin-bottom: 5px;
+}
+
+input,select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: none;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    font-size: 14px;
+    outline: none;
+}
+
+input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.save-btn {
+    width: 100%;
+    background: linear-gradient(90deg, #6b48ff, #a855f7);
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #fff;
+    font-weight: 600;
+    font-size: 16px;
+    transition: 0.3s;
+    margin-top: 15px;
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(134, 71, 241, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(134, 71, 241, 0);}
+    100% { box-shadow: 0 0 0 0 rgba(134, 71, 241, 0);}
+}
+
+.add-transaction {
+    background: linear-gradient(90deg, #6b48ff, #a855f7);
+    color: white;
+    box-shadow: 0 4px 12px rgba(107, 72, 255, 0.3);
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 30px;
+    transition: 0.3s;
+    animation: pulse 5s infinite;
+}
+
+.add-transaction:hover {
+    background: linear-gradient(90deg, #a855f7, #6b48ff);
+    transform: translateY(-2px);
+}
+
+.save-btn:hover {
+    background: linear-gradient(90deg, #a855f7, #6b48ff);
+    transform: translateY(-2px);
+}
+
+button:focus,a:focus,select:focus,input:focus {
+    outline: 2px solid #a100ff;
+    outline-offset: 2px;
+}
+
+
+
+
+
+
