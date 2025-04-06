@@ -26,7 +26,7 @@ const jwtAuthMiddleware = (req, res, next) => {
 const generateToken = (user) => {
 
     return jwt.sign(
-        { id: user.id, username: user.username },  // Include `_id`
+        { id: user.id, username: user.username }, 
         "123456",
         { expiresIn: '1h' }
     );              
