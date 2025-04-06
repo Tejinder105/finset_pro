@@ -234,3 +234,27 @@ app.get("/moneyFlow", async (req, res) => {
 app.get("/transaction",async(req,res)=>{
     res.sendFile(path.join(__dirname, "../frontend/transaction.html"));
 })
+
+app.patch("/reset-password", async (req, res) => {
+    try {
+        const { email, newPassword } = req.body;
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        // Update password
+        user.password = newPassword;
+        await user.save();
+
+        res.json({ message: "Password successfully reset" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Error resetting password" });
+    }
+});
+
+app.get('/forgot-password', (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend/forgot-password.html"));
+})
