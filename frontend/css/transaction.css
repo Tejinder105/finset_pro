@@ -530,3 +530,29 @@ button:focus,a:focus,select:focus,input:focus {
 
 /* Pagination Styles */
 /* Pagination styles removed */
+
+.sortable {
+    cursor: pointer;
+    position: relative;
+    user-select: none;
+}
+
+.sort-icon {
+    font-size: 12px;
+    margin-left: 5px;
+    opacity: 0.5;
+}
+
+.sorting-asc .sort-icon {
+    opacity: 1;
+    content: "↑";
+}
+
+.sorting-desc .sort-icon {
+    opacity: 1;
+    content: "↓";
+}
+
+.sortable:hover {
+    background-color: #333333;
+}

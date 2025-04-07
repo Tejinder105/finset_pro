@@ -1,4 +1,6 @@
 let allTransactions = [];
+let currentSortColumn = 'date';
+let currentSortOrder = 'desc';
 
 // Load transactions
 async function loadTransactions() {
@@ -117,6 +119,33 @@ function filterByDate(transactions, dateFilter, startDate, endDate) {
     });
 }
 
+// Add this function to handle sorting
+function sortTransactions(transactions, column, order) {
+    return [...transactions].sort((a, b) => {
+        let compareA, compareB;
+
+        switch (column) {
+            case 'date':
+                compareA = new Date(a.date).getTime();
+                compareB = new Date(b.date).getTime();
+                break;
+            case 'amount':
+                compareA = parseFloat(a.amount);
+                compareB = parseFloat(b.amount);
+                break;
+            default:
+                compareA = a[column].toLowerCase();
+                compareB = b[column].toLowerCase();
+        }
+
+        if (order === 'asc') {
+            return compareA > compareB ? 1 : -1;
+        } else {
+            return compareA < compareB ? 1 : -1;
+        }
+    });
+}
+
 // Display transactions
 function displayTransactions(transactions) {
     const tbody = document.getElementById('recent-transactions');
@@ -129,8 +158,11 @@ function displayTransactions(transactions) {
         return;
     }
 
+    // Sort transactions before displaying
+    const sortedTransactions = sortTransactions(transactions, currentSortColumn, currentSortOrder);
+
     // Add all transaction rows
-    transactions.forEach(transaction => {
+    sortedTransactions.forEach(transaction => {
         const row = document.createElement('tr');
         const date = new Date(transaction.date).toLocaleDateString();
         const amount = parseFloat(transaction.amount).toFixed(2);
@@ -145,6 +177,21 @@ function displayTransactions(transactions) {
             <td>${transaction.method}</td>
         `;
         tbody.appendChild(row);
+    });
+
+    // Update sort indicators
+    updateSortIndicators();
+}
+
+// Add this function to update sort indicators
+function updateSortIndicators() {
+    const headers = document.querySelectorAll('.sortable');
+    headers.forEach(header => {
+        const column = header.dataset.sort;
+        header.classList.remove('sorting-asc', 'sorting-desc');
+        if (column === currentSortColumn) {
+            header.classList.add(currentSortOrder === 'asc' ? 'sorting-asc' : 'sorting-desc');
+        }
     });
 }
 
@@ -193,6 +240,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Clear filters button
     document.getElementById('clearFilters').addEventListener('click', clearFilters);
+
+    // Add click handlers for sortable columns
+    document.querySelectorAll('.sortable').forEach(header => {
+        header.addEventListener('click', () => {
+            const column = header.dataset.sort;
+            
+            // Toggle sort order if clicking the same column
+            if (column === currentSortColumn) {
+                currentSortOrder = currentSortOrder === 'asc' ? 'desc' : 'asc';
+            } else {
+                currentSortColumn = column;
+                currentSortOrder = 'asc';
+            }
+
+            displayTransactions(allTransactions);
+        });
+    });
 
     // Initial load
     loadTransactions();

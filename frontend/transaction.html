@@ -133,11 +133,21 @@
                 <table class="transaction-table" aria-label="Recent Transactions">
                     <thead>
                         <tr>
-                            <th class="round">Date</th>
-                            <th>Name</th>
-                            <th>Amount</th>
-                            <th>Category</th>
-                            <th class="round">Method</th>
+                            <th class="round sortable" data-sort="date">
+                                Date <span class="sort-icon">↕</span>
+                            </th>
+                            <th class="sortable" data-sort="name">
+                                Name <span class="sort-icon">↕</span>
+                            </th>
+                            <th class="sortable" data-sort="amount">
+                                Amount <span class="sort-icon">↕</span>
+                            </th>
+                            <th class="sortable" data-sort="category">
+                                Category <span class="sort-icon">↕</span>
+                            </th>
+                            <th class="round sortable" data-sort="method">
+                                Method <span class="sort-icon">↕</span>
+                            </th>
                         </tr>
                     </thead>
                     <tbody id="recent-transactions">
