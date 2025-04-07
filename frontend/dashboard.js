@@ -125,9 +125,17 @@ async function displayMoneyFlowChart() {
     expenseGradient.addColorStop(0, "#ff4444"); // Red for expenses
     expenseGradient.addColorStop(1, "#ff8787");
     try {
-        const response = await fetch("/moneyFlow");
+        const token = localStorage.getItem('token');
+        const response = await fetch('/moneyFlow', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        
+        if (!response.ok) throw new Error('Failed to fetch money flow data');
+        
         const data = await response.json();
-
+        
         if (moneyFlowChart) {
             moneyFlowChart.destroy();
         }

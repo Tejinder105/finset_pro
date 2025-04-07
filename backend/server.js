@@ -211,13 +211,16 @@ app.post('/transaction', jwtAuthMiddleware, async (req, res) => {
 });
 
 
-app.get("/moneyFlow", async (req, res) => {
+app.get("/moneyFlow", jwtAuthMiddleware, async (req, res) => {
     try {
-        const transactions = await Transaction.find(); 
+        // Get only the logged-in user's transactions
+        const transactions = await Transaction.find({ userId: req.user.id });
 
-        let incomeData = new Array(12).fill(0); 
+        // Initialize arrays with zeros for all months
+        let incomeData = new Array(12).fill(0);
         let expenseData = new Array(12).fill(0);
 
+        // Process only the user's transactions
         transactions.forEach((txn) => {
             const monthIndex = new Date(txn.date).getMonth();
             if (txn.type === "income") {
@@ -229,6 +232,7 @@ app.get("/moneyFlow", async (req, res) => {
 
         res.json({ income: incomeData, expense: expenseData });
     } catch (err) {
+        console.error("Error in moneyFlow:", err);
         res.status(500).json({ message: "Error fetching data", error: err });
     }
 });
