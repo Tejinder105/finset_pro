@@ -15,6 +15,9 @@ const Transaction = require('./models/transaction');
 app.use(express.static(path.join(__dirname, "../frontend")));
 app.use(express.json());
 
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend/index.html"));
+});
 
 passport.use(new LocalStrategy(async (username, password, done) => {
     try {
