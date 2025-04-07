@@ -31,7 +31,6 @@ body {
     justify-content: space-between;
     background: var(--bg-light-dark);
     padding: 10px 20px;
-    border-bottom: 1px solid var(--border-color);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
@@ -52,7 +51,6 @@ body {
     width: 200px;
     box-sizing: border-box;
     background-color: var(--bg-light-dark);
-    border-right: 1px solid var(--border-color);
     padding: 5px 1em;
     display: flex;
     flex-direction: column;
@@ -92,21 +90,20 @@ body {
 #sidebar ul li:first-child {
     display: flex;
     align-items: center;
-    gap: 6px; /* Reduced gap */
-    padding: 8px 6px; /* Reduced vertical and horizontal padding */
-    margin-bottom: 10px; /* Reduced bottom margin */
-    border-bottom: 1px solid var(--border-color);
-    height: 35px; /* Set fixed height */
+    gap: 6px;
+    padding: 8px 6px;
+    margin-bottom: 10px;
+    height: 35px;
 }
 
 #sidebar ul li:first-child img {
-    width: 20px; /* Reduced logo size further */
-    height: 20px; /* Reduced logo size further */
+    width: 20px;
+    height: 20px;
     object-fit: contain;
 }
 
 .logo {
-    font-size: 1rem; /* Slightly reduced font size */
+    font-size: 1rem;
     font-weight: 700;
     background: var(--gradient-primary);
     -webkit-background-clip: text;
@@ -118,7 +115,6 @@ body {
 .bottom {
     margin-top: 30px;
     font-size: 0.6rem;
-    border-top: 1px solid var(--border-color);
     padding-top: 20px;
 }
 
@@ -177,7 +173,6 @@ body {
     background: var(--bg-light-dark);
     border-radius: 12px;
     padding: 20px;
-    border: 1px solid var(--border-color);
     opacity: 0;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     animation: fadeIn 0.5s ease forwards;
@@ -222,7 +217,6 @@ body {
 .transaction-table th, .transaction-table td {
     padding: 10px;
     text-align: left;
-    border-bottom: 1px solid #444;
     color: white;
 }
 
