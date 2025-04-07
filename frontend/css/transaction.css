@@ -89,22 +89,30 @@ body {
     flex-shrink: 0;
 }
 
-#sidebar>ul>li:first-child {
+#sidebar ul li:first-child {
     display: flex;
-    font-size: 0.8rem;
-    justify-content: flex-start;
     align-items: center;
-    margin-bottom: 30px;
+    gap: 6px; /* Reduced gap */
+    padding: 8px 6px; /* Reduced vertical and horizontal padding */
+    margin-bottom: 10px; /* Reduced bottom margin */
+    border-bottom: 1px solid var(--border-color);
+    height: 35px; /* Set fixed height */
 }
 
-#sidebar > ul > li:first-child img {
-    width: 40px;
-    height: 40px;
+#sidebar ul li:first-child img {
+    width: 20px; /* Reduced logo size further */
+    height: 20px; /* Reduced logo size further */
+    object-fit: contain;
 }
 
-#sidebar>ul>li:first-child .sidelogo {
-    font-weight: 600;
-    font-size: 1.2rem;
+.logo {
+    font-size: 1rem; /* Slightly reduced font size */
+    font-weight: 700;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    white-space: nowrap;
 }
 
 .bottom {
@@ -416,8 +424,115 @@ button:focus,a:focus,select:focus,input:focus {
     outline-offset: 2px;
 }
 
+/* Filters Section Styles */
+.filters-section {
+    padding: 8px 20px; /* Reduced vertical padding */
+    background: var(--bg-light-dark);
+    border-bottom: 1px solid var(--border-color);
+}
 
+/* Combined Search and Filters Container */
+.search-container {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    height: 40px; /* Set fixed height */
+}
 
+.search-box {
+    display: flex;
+    align-items: center;
+    background: #2a2a2a;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 4px 8px; /* Reduced padding */
+    height: 32px; /* Set fixed height */
+}
 
+.search-icon {
+    width: 16px; /* Smaller icon */
+    height: 16px;
+    margin-right: 6px;
+    opacity: 0.7;
+}
 
+#searchTransaction {
+    background: none;
+    border: none;
+    color: #fff;
+    width: 100%;
+    font-size: 13px;
+    height: 24px; /* Set fixed height */
+}
 
+#searchTransaction:focus {
+    outline: none;
+}
+
+#searchTransaction::placeholder {
+    color: #888;
+}
+
+/* Filters Container */
+.filters-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 32px; /* Set fixed height */
+}
+
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    height: 32px; /* Set fixed height */
+}
+
+.filter-group label {
+    color: #e0e0e0;
+    font-size: 13px;
+}
+
+.filter-group select,
+.filter-group input[type="date"] {
+    background: #2a2a2a;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: #fff;
+    padding: 4px 8px;
+    font-size: 13px;
+    height: 32px; /* Set fixed height */
+}
+
+/* Custom Date Range Inputs */
+#customDateRange {
+    display: flex;
+    gap: 4px;
+    height: 32px; /* Set fixed height */
+}
+
+#customDateRange input[type="date"] {
+    height: 32px; /* Set fixed height */
+}
+
+/* Clear Filters Button */
+.clear-btn {
+    height: 32px; /* Set fixed height */
+    padding: 0 12px;
+    font-size: 13px;
+    border-radius: 6px;
+}
+
+.clear-btn:hover {
+    background: #3a3a3a;
+    border-color: #a855f7;
+}
+
+/* Adjust main container padding */
+.mainbody-container {
+    padding-top: 0;
+}
+
+/* Pagination Styles */
+/* Pagination styles removed */

@@ -210,13 +210,13 @@ app.post('/transaction', jwtAuthMiddleware, async (req, res) => {
 
 app.get("/moneyFlow", async (req, res) => {
     try {
-        const transactions = await Transaction.find(); // Fetch all transactions from MongoDB
+        const transactions = await Transaction.find(); 
 
-        let incomeData = new Array(12).fill(0); // Array for 12 months
+        let incomeData = new Array(12).fill(0); 
         let expenseData = new Array(12).fill(0);
 
         transactions.forEach((txn) => {
-            const monthIndex = new Date(txn.date).getMonth(); // Get month (0 = Jan, 11 = Dec)
+            const monthIndex = new Date(txn.date).getMonth();
             if (txn.type === "income") {
                 incomeData[monthIndex] += txn.amount;
             } else if (txn.type === "expense") {
@@ -258,3 +258,15 @@ app.patch("/reset-password", async (req, res) => {
 app.get('/forgot-password', (req, res) => {
     res.sendFile(path.join(__dirname, "../frontend/forgot-password.html"));
 })
+
+// Add this new route to get all transactions for a user
+app.get('/api/transactions', jwtAuthMiddleware, async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const transactions = await Transaction.find({ userId }).sort({ date: -1 });
+        res.json(transactions);
+    } catch (error) {
+        console.error('Error fetching transactions:', error);
+        res.status(500).json({ message: 'Error fetching transactions' });
+    }
+});

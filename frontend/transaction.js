@@ -1,102 +1,199 @@
-document.addEventListener('DOMContentLoaded',async()=>{
-    const token = localStorage.getItem('token');
-    if (!token) {
-        window.location.href = '/signin';
+let allTransactions = [];
+
+// Load transactions
+async function loadTransactions() {
+    try {
+        const response = await fetch('/api/transactions', {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch transactions');
+        }
+
+        allTransactions = await response.json();
+
+        // Populate category filter
+        const categories = [...new Set(allTransactions.map(t => t.category))];
+        const categoryFilter = document.getElementById('categoryFilter');
+        categoryFilter.innerHTML = '<option value="all">All Categories</option>';
+        categories.forEach(category => {
+            const option = document.createElement('option');
+            option.value = category.toLowerCase();
+            option.textContent = category;
+            categoryFilter.appendChild(option);
+        });
+
+        // Display all transactions initially
+        displayTransactions(allTransactions);
+    } catch (error) {
+        console.error('Error loading transactions:', error);
+        const tbody = document.getElementById('transactionTableBody');
+        tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: #FF5252;">Error loading transactions. Please try again later.</td></tr>`;
+    }
+}
+
+// Apply filters and search
+function applyFilters() {
+    const searchText = document.getElementById('searchTransaction').value.toLowerCase().trim();
+    const dateFilter = document.getElementById('dateFilter').value;
+    const typeFilter = document.getElementById('typeFilter').value;
+    const categoryFilter = document.getElementById('categoryFilter').value;
+    const startDate = document.getElementById('startDate').value;
+    const endDate = document.getElementById('endDate').value;
+
+    // Start with all transactions
+    let filteredTransactions = [...allTransactions];
+
+    // Only apply filters if they are actually set
+    if (searchText) {
+        filteredTransactions = filteredTransactions.filter(transaction => {
+            return (
+                transaction.name.toLowerCase().includes(searchText) ||
+                transaction.category.toLowerCase().includes(searchText) ||
+                transaction.amount.toString().includes(searchText)
+            );
+        });
+    }
+
+    if (typeFilter !== 'all') {
+        filteredTransactions = filteredTransactions.filter(transaction => 
+            transaction.type.toLowerCase() === typeFilter.toLowerCase()
+        );
+    }
+
+    if (categoryFilter !== 'all') {
+        filteredTransactions = filteredTransactions.filter(transaction => 
+            transaction.category.toLowerCase() === categoryFilter.toLowerCase()
+        );
+    }
+
+    if (dateFilter !== 'all') {
+        filteredTransactions = filterByDate(filteredTransactions, dateFilter, startDate, endDate);
+    }
+
+    // Reset to first page when filters change
+    currentPage = 1;
+    displayTransactions(filteredTransactions);
+}
+
+// Filter transactions by date
+function filterByDate(transactions, dateFilter, startDate, endDate) {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    return transactions.filter(transaction => {
+        const transactionDate = new Date(transaction.date);
+        transactionDate.setHours(0, 0, 0, 0);
+
+        switch (dateFilter) {
+            case 'today':
+                return transactionDate.getTime() === today.getTime();
+            case 'week':
+                const weekAgo = new Date(today);
+                weekAgo.setDate(today.getDate() - 7);
+                return transactionDate >= weekAgo;
+            case 'month':
+                const monthAgo = new Date(today);
+                monthAgo.setMonth(today.getMonth() - 1);
+                return transactionDate >= monthAgo;
+            case 'year':
+                const yearAgo = new Date(today);
+                yearAgo.setFullYear(today.getFullYear() - 1);
+                return transactionDate >= yearAgo;
+            case 'custom':
+                if (startDate && endDate) {
+                    const start = new Date(startDate);
+                    const end = new Date(endDate);
+                    end.setHours(23, 59, 59, 999);
+                    return transactionDate >= start && transactionDate <= end;
+                }
+                return true;
+            default:
+                return true;
+        }
+    });
+}
+
+// Display transactions
+function displayTransactions(transactions) {
+    const tbody = document.getElementById('recent-transactions');
+    
+    // Clear existing rows
+    tbody.innerHTML = '';
+
+    if (transactions.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" style="text-align: center;">No transactions found</td></tr>`;
         return;
     }
-    const addTransactionBtn = document.getElementById("add_transaction_btn");
-    const closeBtn = document.getElementById("close_btn");
-    const popup = document.getElementById("popup");
-    if (addTransactionBtn && closeBtn && popup) {
-        addTransactionBtn.addEventListener("click", () => {
-            popup.style.display = "flex"
-            setTimeout(() => popup.classList.add("visible"), 10);
-        });
-        closeBtn.addEventListener("click", () => {
-            popup.classList.remove("visible");
-            setTimeout(() => popup.style.display = "none", 300);
-        });
-    } else {
-        console.error("One or more popup elements not found. Check IDs.");
-    }
 
+    // Add all transaction rows
+    transactions.forEach(transaction => {
+        const row = document.createElement('tr');
+        const date = new Date(transaction.date).toLocaleDateString();
+        const amount = parseFloat(transaction.amount).toFixed(2);
+        const amountColor = transaction.type.toLowerCase() === 'income' ? '#4CAF50' : '#FF5252';
+        const amountPrefix = transaction.type.toLowerCase() === 'income' ? '+' : '-';
 
-    try {
-        const response = await fetch('/dashboard', {
-            headers: { 'Authorization': `Bearer ${token}` }
-        });
-        if (!response.ok) throw new Error('Unauthorized access. Redirecting to sign-in.');
-        const data = await response.json();
-        console.log("Dashboard Data:", data);
-        const transactions = document.getElementById('recent-transactions');
-        transactions.innerHTML = "";
-        data.transactions
-            .sort((a, b) => new Date(b.date) - new Date(a.date))
-            .slice(0, 5)
-            .forEach(transaction => {
-                const row = document.createElement("tr");
-                const amountCell = `<td style="color: ${transaction.type === 'income' ? '#00cc00' : '#ff4444'}">${transaction.type === "income" ? "+" : "-"}₹${transaction.amount}</td>`;
-                row.innerHTML = `
-            <td>${new Date(transaction.date).toLocaleDateString()}</td>
+        row.innerHTML = `
+            <td>${date}</td>
             <td>${transaction.name}</td>
-            ${amountCell}
+            <td style="color: ${amountColor}">${amountPrefix}₹${Math.abs(amount)}</td>
             <td>${transaction.category}</td>
             <td>${transaction.method}</td>
         `;
-                transactions.appendChild(row);
-            });
+        tbody.appendChild(row);
+    });
+}
 
-        await displayMoneyFlowChart();
-        loading.style.display = 'none';
-    } catch (error) {
-        loading.style.display = 'none';
-        console.error("Error fetching data:", error);
-        alert("Session expired. Please sign in again.");
-        localStorage.removeItem('token');
-        window.location.href = '/signin';
-    }
+// Clear all filters
+function clearFilters() {
+    // Reset all filter elements
+    document.getElementById('dateFilter').value = 'all';
+    document.getElementById('typeFilter').value = 'all';
+    document.getElementById('categoryFilter').value = 'all';
+    document.getElementById('searchTransaction').value = '';
+    document.getElementById('customDateRange').style.display = 'none';
+    document.getElementById('startDate').value = '';
+    document.getElementById('endDate').value = '';
+    
+    // Reset page number
+    currentPage = 1;
+    
+    // Display all transactions
+    displayTransactions(allTransactions);
+}
 
-});
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialize event listeners
+    document.getElementById('dateFilter').addEventListener('change', function(e) {
+        const customDateRange = document.getElementById('customDateRange');
+        customDateRange.style.display = e.target.value === 'custom' ? 'flex' : 'none';
+        applyFilters();
+    });
 
-document.getElementById("transaction_form")?.addEventListener("submit", async (event) => {
-    event.preventDefault();
-
-    const formData = {
-        amount: document.getElementById("amount").value,
-        type: document.getElementById("type").value,
-        name: document.getElementById("name").value.trim(),
-        method: document.getElementById("method").value,
-        category: document.getElementById("category").value,
-    };
-
-    if (!formData.amount || !formData.type || !formData.name || !formData.method || !formData.category) {
-        alert("Please fill out all fields.");
-        return;
-    }
-
-    try {
-        const token = localStorage.getItem("token");
-        if (!token) {
-            alert("Authentication error: Please log in again.");
-            return;
+    const filterElements = ['typeFilter', 'categoryFilter', 'startDate', 'endDate'];
+    filterElements.forEach(elementId => {
+        const element = document.getElementById(elementId);
+        if (element) {
+            element.addEventListener('change', applyFilters);
         }
+    });
 
-        const response = await fetch("/transaction", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify(formData),
-        });
+    // Add debounced search input listener
+    const searchInput = document.getElementById('searchTransaction');
+    let debounceTimeout;
+    searchInput.addEventListener('input', () => {
+        clearTimeout(debounceTimeout);
+        debounceTimeout = setTimeout(applyFilters, 300);
+    });
 
-        if (response.ok) {
-            alert("Transaction added successfully!");
-            window.location.reload();
-        } else {
-            alert("Transaction addition failed. Please try again.");
-        }
-    } catch (error) {
-        console.error("Error:", error);
-    }
-});
+    // Clear filters button
+    document.getElementById('clearFilters').addEventListener('click', clearFilters);
+
+    // Initial load
+    loadTransactions();
+}); // End of DOMContentLoaded event listener
